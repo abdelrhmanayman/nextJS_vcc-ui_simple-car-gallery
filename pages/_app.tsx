@@ -1,11 +1,22 @@
-import { HelloWorld } from "../src/components/HelloWorld";
-import "../public/css/styles.css";
 import React from "react";
+import { StyleProvider, ThemePicker } from "vcc-ui";
+
+import CarsGallery from './carsGallery'
+import { NavBar } from '../src/components/Navbar'
+
+import "../public/scss/styles.scss";
+import { Footer } from "../src/components/Footer";
 
 function HomePage() {
   return (
     <React.StrictMode>
-      <HelloWorld />
+      <StyleProvider>
+        <ThemePicker variant="light">
+          <NavBar />
+          <CarsGallery />
+          <Footer />
+        </ThemePicker>
+      </StyleProvider>
     </React.StrictMode>
   );
 }
