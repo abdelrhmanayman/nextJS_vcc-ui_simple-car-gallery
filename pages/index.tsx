@@ -4,7 +4,7 @@ import { NavBar } from "../src/components/Navbar";
 const index = () => {
     return (
         <div>
-            <Footer />
+            Hello there 
         </div>
     );
 }
