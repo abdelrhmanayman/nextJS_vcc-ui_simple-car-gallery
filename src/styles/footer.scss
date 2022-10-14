@@ -3,11 +3,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #111;
+    background: #f0f0f0;
     height: auto;
     width: auto;
     padding: 1rem;
-    color: #fff;
+    color: #707070;
 }
 
 .footer-content {
@@ -31,10 +31,10 @@
     margin: 5px auto;
     line-height: 28px;
     font-size: 14px;
-    color: #cacdd2;
+    color: #707073;
 }
 
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 750px) {
     .footer {
         display: none !important;
     }

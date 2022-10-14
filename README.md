@@ -40,7 +40,4 @@ Two extra SVG icons are also provided by our designer which are stored under `do
 - Accessibility is important.
 - Code Structure and reusablity is important.
 
-## Bonus Points:
 
-- If you use our design system component library, [VCC-UI](https://vcc-ui.vercel.app/)
-- If you add a filter bar on the top to filter cars by `bodyType`

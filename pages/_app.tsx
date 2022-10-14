@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleProvider, ThemePicker, View } from "vcc-ui";
+import { StyleProvider, ThemePicker } from "vcc-ui";
+import { AppProps } from "next/app";
 
-import CarsGallery from './carsGallery'
+
 import { NavBar } from '../src/components/Navbar'
 import { Footer } from "../src/components/Footer";
 
@@ -10,15 +11,17 @@ import '../src/styles/global.scss';
 import '../src/styles/carsGallery.scss'
 import '../src/styles/footer.scss'
 import '../src/styles/carousel.scss'
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
 
 
-function HomePage() {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <React.StrictMode>
       <StyleProvider>
         <ThemePicker variant="light">
           <NavBar />
-          <CarsGallery />
+          <Component {...pageProps} />
           <Footer />
         </ThemePicker>
       </StyleProvider>
@@ -26,4 +29,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default MyApp;

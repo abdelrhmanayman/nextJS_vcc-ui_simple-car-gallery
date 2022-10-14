@@ -1,12 +1,9 @@
-import { Footer } from "../src/components/Footer";
-import { NavBar } from "../src/components/Navbar";
+import CarsGallery from "./carsGallery";
 
-const index = () => {
+const Index = () => {
     return (
-        <div>
-            Hello there 
-        </div>
+        <CarsGallery />
     );
 }
 
-export default index;
+export default Index;

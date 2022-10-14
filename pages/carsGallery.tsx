@@ -1,22 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "vcc-ui";
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import Image from "next/image";
 
 import { Car } from "../src/shared/interfaces/car.interface";
-import { CarouselNavigationButtons } from "../src/components/CarouselNavigationButtons";
-import ChevronSmall from "../public/icons/chevron-small.svg";
+import { CarsCarousel } from "../src/components/CarsCarousel";
+import { CarsFilterSelect } from "../src/components/CarsFilterSelect";
+import { carouselBreakPoints } from "../src/shared/interfaces/carsCarousel.interface";
 
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
+const carsCarouselBreakPoints: carouselBreakPoints = {
+  250: {
+    slidesPerView: 1,
+  },
+  320: {
+    slidesPerView: 1.2,
+  },
+  480: {
+    slidesPerView: 1.5,
+  },
+  640: {
+    slidesPerView: 1.5,
+  },
+  700: {
+    slidesPerView: 2,
+  },
+  1024: {
+    slidesPerView: 4,
+  }
+}
+
+const mapFilterListData = (cars: Car[]): string[] => Array.from(new Set(cars.map(({ bodyType }) => bodyType)))
 
 function CarsGallery() {
-  const [data, setData] = useState([]);
-  const [filterData, setFilterData] = useState([]);
+  const [cars, setCarsData] = useState<Car[]>([]);
+  const [filteredCars, setFilterData] = useState<Car[]>([]);
+  const [filterListData, setFilterListData] = useState<string[]>([]);
+  const [isCardsLoading, setCarsLoading] = useState<boolean>(false)
+  const [IsError, setError] = useState<boolean>(true)
+
 
   useEffect(() => {
+    setCarsLoading(true)
+
     fetch("./api/cars.json", {
       headers: {
         "Content-Type": "application/json",
@@ -24,104 +47,43 @@ function CarsGallery() {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setFilterData(data);
+      .then((cars) => {
+        setFilterListData(mapFilterListData(cars))
+        setCarsData(cars);
+        setFilterData(cars);
+        setError(false)
+        setTimeout(() => {
+          setCarsLoading(false)
+        }, 2000)
       })
-      .catch((e) => console.log("Error:", e));
+      .catch((e) => {
+        console.error(e.message)
+        setCarsLoading(false)
+      });
   }, []);
 
 
-  const carSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const cars = [...data];
-    const filteredCars: any = cars
-      .map((car: Car) => (e.target.value === car.bodyType ? car : null))
-      .filter(Boolean);
+  const carFilterHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCarsLoading(true)
 
-    if (filteredCars.length) {
-      setFilterData(filteredCars);
-    } else {
-      setFilterData(cars);
-    }
+    const filteredCars: (Car | null)[] = cars.filter(({ bodyType }) => bodyType === e.target.value)
+    setFilterData(filteredCars.length ? filteredCars as Car[] : cars);
+
+    setTimeout(() => {
+      setCarsLoading(false)
+    }, 1000)
   };
 
   return (
-    <div className="container">
-      <select
-        className="car-filter"
-        onChange={carSelected}
-        aria-label="car filter"
-      >
-        <option value="All Cars">All Types</option>
-        {[...new Set(data.map((car: Car) => car.bodyType))].map((item: string) => {
-          return (
-            <option value={item} key={item}>
-              {item.toUpperCase()}
-            </option>
-          );
-        })}
-      </select>
-      <Swiper
-        id={'always-be-swipin'}
-        modules={[Pagination]}
-        spaceBetween={20}
-        pagination={{
-          dynamicBullets: false,
-          clickable: true,
-        }}
-        breakpoints={{
-          250: {
-            slidesPerView: 1,
-          },
-          320: {
-            slidesPerView: 1.2,
-          },
-          480: {
-            slidesPerView: 1.5,
-          },
-          640: {
-            slidesPerView: 1.5,
-          },
-          700: {
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerView: 4,
-          }
-        }}
-      >
-        {filterData.map((i: Car) => (
-          <SwiperSlide key={i.id}>
-            <Text subStyle="emphasis" extend={{ color: "#808c98" }}>
-              {i.bodyType.toUpperCase()}
-            </Text>
-            <Text subStyle="emphasis" className="car-details" extend={{ marginRight: '5px' }}>
-              {i.modelName}
-            </Text>
-            <Text subStyle="emphasis" className="car-details" extend={{ color: "#808c98" }}>
-              {i.modelType}
-            </Text>
-            <Image src={i.imageUrl} alt="car display" width={800} height={600} className="car-img" />
-            <ul className="car-links">
-              <li>
-                <a href={`/learn:${i.id}`}>
-                  <Text subStyle="emphasis" extend={{ color: "#337ac0" }}>
-                    LEARN <Image src={ChevronSmall} className="chevron-small" alt="learn" />
-                  </Text>
-                </a>
-              </li>
-              <li>
-                <a href={`/shop:${i.id}`}>
-                  <Text subStyle="emphasis" extend={{ color: "#337ac0" }}>
-                    SHOP <Image src={ChevronSmall} className="chevron-small" alt="shop" />
-                  </Text>
-                </a>
-              </li>
-            </ul>
-          </SwiperSlide>
-        ))}
-        <CarouselNavigationButtons />
-      </Swiper>
+    <div>
+      {
+        IsError
+          ? <div className="error-container"><Image src="/images/error_page.png" alt="error_page" width={800} height={500} /></div>
+          : <div className="container">
+            <CarsFilterSelect defaultValue="All Types" onSelectHandler={carFilterHandler} listData={filterListData} />
+            <CarsCarousel defaultSpaceBetween={20} carsData={filteredCars} breakPoints={carsCarouselBreakPoints} isLoading={isCardsLoading} />
+          </div>
+      }
     </div>
   );
 }
