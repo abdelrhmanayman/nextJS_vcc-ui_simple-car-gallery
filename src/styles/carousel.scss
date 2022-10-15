@@ -19,7 +19,7 @@
 }
 
 .swiper-pagination-bullet-active {
-    background-color: #000;
+    background-color: #000 !important;
 }
 
 .car-details {
@@ -31,7 +31,7 @@
 
 .car-links {
     display: table !important;
-    margin: 15px auto;
+    margin: 10px auto;
 }
 
 .loading-bar {
@@ -58,7 +58,7 @@
 
 @media screen and (min-width: 350px) {
     .swiper {
-        margin-top: 65px;
+        margin-top: 75px;
     }
 
     .swiper-pagination {
