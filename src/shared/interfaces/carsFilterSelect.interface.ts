@@ -1,5 +1,5 @@
 export interface carsFilterSelect {
-    onSelectHandler: (e: React.ChangeEvent<HTMLSelectElement>) => void,
+    onSelectHandler: (carType: string) => void,
     defaultValue: string,
     listData: string[]
 }

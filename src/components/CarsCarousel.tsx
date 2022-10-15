@@ -1,14 +1,21 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, } from "swiper";
-import { Link, LoadingBar, Text } from 'vcc-ui'
-import Image from 'next/image'
+import { LoadingBar, Text } from 'vcc-ui';
+import { useDispatch } from "react-redux";
+import Image from 'next/image';
+import Link from "next/link";
+
 
 import { CarouselNavigationButtons } from "./CarouselNavigationButtons";
 import { carsCarouselProps } from "../shared/interfaces/carsCarousel.interface";
+import { setSelectedCar } from "../../store/carsSlice";
+import ChevronSmall from '../../public/icons/chevron-small.svg';
 
 
 const CarsCarousel = ({ carsData, defaultSpaceBetween = 20, breakPoints, isLoading = false }: carsCarouselProps) => {
+    const dispatch = useDispatch();
+
     return (
         <Swiper
             modules={[Pagination]}
@@ -36,14 +43,22 @@ const CarsCarousel = ({ carsData, defaultSpaceBetween = 20, breakPoints, isLoadi
                             </Text>
                             <Image src={car.imageUrl} alt="car display" width={800} height={600} className="car-img" />
                             <ul className="car-links">
-                                <li>
-                                    <Link id={`${index}-learn`} href="/learn" arrow="right">
-                                        LEARN
+                                <li  id={`${index}-learn`} onClick={() => {
+                                    dispatch((setSelectedCar as any)(car))
+                                }}>
+                                    <Link href={`/learn/${car.id}`}>
+                                        <Text subStyle="emphasis" extend={{ color: "#337ac0" }}>
+                                            LEARN <Image src={ChevronSmall} className="chevron-small" alt="right-arrow" />
+                                        </Text>
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link id={`${index}-shop`} href="/shop" arrow="right">
-                                        SHOP
+                                <li id={`${index}-shop`} onClick={() => {
+                                    dispatch((setSelectedCar as any)(car))
+                                }}>
+                                    <Link href={`/shop/${car.id}`}>
+                                        <Text subStyle="emphasis" extend={{ color: "#337ac0" }}>
+                                            SHOP <Image src={ChevronSmall} className="chevron-small" alt="right-arrow" />
+                                        </Text>
                                     </Link>
                                 </li>
                             </ul>

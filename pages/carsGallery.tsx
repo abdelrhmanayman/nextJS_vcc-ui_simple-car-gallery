@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { Car } from "../src/shared/interfaces/car.interface";
 import { CarsCarousel } from "../src/components/CarsCarousel";
-import { CarsFilterSelect } from "../src/components/CarsFilterSelect";
+import { CarsFilterSelect } from "../src/components/CarsFilterBar";
 import { carouselBreakPoints } from "../src/shared/interfaces/carsCarousel.interface";
 
 const carsCarouselBreakPoints: carouselBreakPoints = {
@@ -63,10 +63,10 @@ function CarsGallery() {
   }, []);
 
 
-  const carFilterHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const carFilterHandler = (carType: string) => {
     setCarsLoading(true)
 
-    const filteredCars: (Car | null)[] = cars.filter(({ bodyType }) => bodyType === e.target.value)
+    const filteredCars: (Car | null)[] = cars.filter(({ bodyType }) => bodyType === carType)
     setFilterData(filteredCars.length ? filteredCars as Car[] : cars);
 
     setTimeout(() => {

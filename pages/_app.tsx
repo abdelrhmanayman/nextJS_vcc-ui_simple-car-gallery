@@ -3,30 +3,32 @@ import { StyleProvider, ThemePicker } from "vcc-ui";
 import { AppProps } from "next/app";
 
 
-import { NavBar } from '../src/components/Navbar'
-import { Footer } from "../src/components/Footer";
+import { NavBar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { wrapper } from "store/store";
 
 
-import '../src/styles/global.scss';
-import '../src/styles/carsGallery.scss'
-import '../src/styles/footer.scss'
-import '../src/styles/carousel.scss'
+
+import '../src/styles/global.styles.scss';
+import '../src/styles/carsGallery.styles.scss'
+import '../src/styles/footer.styles.scss'
+import '../src/styles/carousel.styles.scss'
+import '../src/styles/carsFilterBar.styles.scss'
+import '../src/styles/learn.styles.scss'
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <React.StrictMode>
-      <StyleProvider>
-        <ThemePicker variant="light">
-          <NavBar />
+    <StyleProvider>
+      <ThemePicker variant="light">
+        <NavBar />
           <Component {...pageProps} />
-          <Footer />
-        </ThemePicker>
-      </StyleProvider>
-    </React.StrictMode>
+        <Footer />
+      </ThemePicker>
+    </StyleProvider>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

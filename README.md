@@ -35,7 +35,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Features:
 
-1. Initial landing page displays carousel of cars which is created using [react-slick](https://www.npmjs.com/package/react-slick)
+1. Initial landing page displays carousel of cars which is created using [Swiperjs]
 2. After the initial launch, user is able to filter the results (based on `bodyType`) with help of provided filters.
 3. Clcking on Learn/Shop will redirect you to the respective dynamic page. URL will be changed according to the car id.
 4. A mobile-first design approach is implemented using modular css where,
@@ -46,9 +46,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Asumptions:
 
 1. Each button click will trigger an api call along with the query stirng to get the filtered results. The page will be client side rendered.
-2. The state has not been persisted. State was handled locally without using any additional library (Eg., Redux) to avoid unnecessary app size increase.
+2. The state has been persisted. State was handled locally using Redux(thunk).
 3. CSS Media query and [VCC-UI](https://vcc-ui.netlify.app) component library have been used for this responsive design.
-4. Error handling is not implemented.
+4. Error handling is implemented in all pages in case of data missing.
+5. E2e testing using Cypress
+6. Unit testing using Jest
 
 ## Project Structure:
 

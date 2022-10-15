@@ -14,6 +14,7 @@ const CarouselNavigationButtons = () => {
             <Image className="button-prev" src={ChevronCircle} alt="prev" />
         </Click>
         <Click
+        extend={{marginLeft: '13px'}}
             aria-label="next"
             onClick={() => swiper?.slideNext()}
         >

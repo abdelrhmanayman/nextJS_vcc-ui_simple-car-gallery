@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react';
 import React, { useState as useStateMock } from 'react'
-import Index from '../../pages/index';
+import CarsGallery from '../pages/carsGallery';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -14,7 +14,7 @@ describe('Render method', () => {
   })
   test('should have rendered and have error image', async () => {
 
-  render(<Index />)
+  render(<CarsGallery />)
 
     expect(screen.getByRole('img', { name: /error_page/, hidden: true })).toBeInTheDocument();
 

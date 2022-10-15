@@ -12,7 +12,7 @@ const customJestConfig = {
 
         '^@/public/(.*)$': '<rootDir>/public/$1',
     },
-    setupFilesAfterEnv: ['./jest.setup.js', 'react-intersection-observer/test-utils', '@testing-library/jest-dom/extend-expect'],
+    setupFilesAfterEnv: ['./jest.setup.js'],
     clearMocks: true,
     collectCoverage: true,
     collectCoverageFrom: [
