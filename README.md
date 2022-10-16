@@ -1,6 +1,9 @@
 # Volvo Cars (Global Online Digital)
 
-This is a [React.js](https://reactjs.org/) project bootstrapped with [`NextJS`](https://nextjs.org).
+This project bootstrapped with [`NextJS`](https://nextjs.org).
+
+## Application is deployed and published using Netfliy.
+**You can check the application through this [link](https://chic-froyo-2d73fe.netlify.app/)**
 
 ## Getting Started
 
@@ -22,7 +25,7 @@ Unit testing:
 npm run test
 ```
 
-e2e testing: 
+E2E testing: 
 ```bash
 npm run cypress
 ```
@@ -51,6 +54,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 4. Error handling is implemented in all pages in case of data missing.
 5. E2e testing using Cypress
 6. Unit testing using Jest
+7. Build analyzing used with @next/bundle-analyzer
 
 ## Project Structure:
 
