@@ -8,6 +8,10 @@
     filter: invert(1);
 }
 
+.button-nav {
+    margin: 25px 2px 0px 0px;
+}
+
 
 @media only screen and (max-width: 600px) {
     .button-nav {
@@ -37,7 +41,6 @@
     .button-nav {
         flex-direction: row !important;
         justify-content: flex-end;
-        margin: 10px;
     }
 
 }

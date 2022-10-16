@@ -26,9 +26,8 @@
 
 
 .car-links {
-    display: table !important;
-    margin: 10px auto;
-    
+    display: flex;
+    justify-content: center;
 }
 
 .loading-bar {
