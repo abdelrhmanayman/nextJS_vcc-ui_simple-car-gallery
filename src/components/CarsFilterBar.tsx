@@ -1,9 +1,15 @@
 import React from 'react'
 import { TabNav, TabNavItem } from "vcc-ui";
+
 import { carsFilterSelect } from "../shared/interfaces/carsFilterSelect.interface"
 
-const CarsFilterSelect = function ({ onSelectHandler, defaultValue, listData }: carsFilterSelect) {
+const CarsFilterSelect = ({ onSelectHandler, defaultValue, listData = {} }: carsFilterSelect) => {
     const [active, setActive] = React.useState(1);
+    const totalCarsNumber: number = Object.values(listData).reduce((acc, curr) => {
+        acc += curr
+        return acc
+    }, 0)
+
     return (
         <div className='car-filter'>
             <TabNav enableLineTransition>
@@ -14,20 +20,21 @@ const CarsFilterSelect = function ({ onSelectHandler, defaultValue, listData }: 
                         onSelectHandler(defaultValue)
                     }}
                 >
-                    {defaultValue}
+                    {defaultValue} ({totalCarsNumber})
                 </TabNavItem>
 
-                {listData.map((item: string, index: number) => (
+                {Object.keys(listData).map((bodyType: string, index: number) => (
                     <TabNavItem
                         key={index}
                         isActive={active === index + 2}
                         onClick={() => {
                             setActive(index + 2);
-                            onSelectHandler(item)
+                            onSelectHandler(bodyType)
                         }}
                     >
-                        {item.toUpperCase()}
+                        {bodyType.toUpperCase()} ({listData[bodyType]})
                     </TabNavItem>
+
                 ))}
             </TabNav>
         </div>

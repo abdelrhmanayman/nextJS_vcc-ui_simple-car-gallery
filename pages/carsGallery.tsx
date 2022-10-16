@@ -27,12 +27,19 @@ const carsCarouselBreakPoints: carouselBreakPoints = {
   }
 }
 
-const mapFilterListData = (cars: Car[]): string[] => Array.from(new Set(cars.map(({ bodyType }) => bodyType)))
+
+const createCarTypesMap = (cars: Car[]): Record<string, number> => cars.reduce((acc: Record<string, number>, curr: Car) => {
+  if (!acc[curr.bodyType]) {
+    acc[curr.bodyType] = 0
+  }
+  acc[curr.bodyType] += 1
+  return acc
+}, {})
 
 function CarsGallery() {
   const [cars, setCarsData] = useState<Car[]>([]);
   const [filteredCars, setFilterData] = useState<Car[]>([]);
-  const [filterListData, setFilterListData] = useState<string[]>([]);
+  const [filterListData, setFilterListData] = useState<Record<string, number>>({});
   const [isCardsLoading, setCarsLoading] = useState<boolean>(false)
   const [IsError, setError] = useState<boolean>(true)
 
@@ -48,7 +55,7 @@ function CarsGallery() {
     })
       .then((res) => res.json())
       .then((cars) => {
-        setFilterListData(mapFilterListData(cars))
+        setFilterListData(createCarTypesMap(cars))
         setCarsData(cars);
         setFilterData(cars);
         setError(false)
@@ -80,7 +87,7 @@ function CarsGallery() {
         IsError
           ? <div className="error-container"><Image src="/images/error_page.png" alt="error_page" width={800} height={500} /></div>
           : <div className="container">
-            <CarsFilterSelect defaultValue="All Types" onSelectHandler={carFilterHandler} listData={filterListData} />
+            <CarsFilterSelect defaultValue="All" onSelectHandler={carFilterHandler} listData={filterListData} />
             <CarsCarousel defaultSpaceBetween={20} carsData={filteredCars} breakPoints={carsCarouselBreakPoints} isLoading={isCardsLoading} />
           </div>
       }
