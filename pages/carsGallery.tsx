@@ -41,7 +41,7 @@ function CarsGallery() {
   const [filteredCars, setFilterData] = useState<Car[]>([]);
   const [filterListData, setFilterListData] = useState<Record<string, number>>({});
   const [isCardsLoading, setCarsLoading] = useState<boolean>(false)
-  const [IsError, setError] = useState<boolean>(true)
+  const [IsError, setError] = useState<boolean>(false)
 
 
   useEffect(() => {
@@ -58,14 +58,13 @@ function CarsGallery() {
         setFilterListData(createCarTypesMap(cars))
         setCarsData(cars);
         setFilterData(cars);
-        setError(false)
         setTimeout(() => {
           setCarsLoading(false)
         }, 2000)
       })
       .catch((e) => {
         console.error(e.message)
-        setCarsLoading(false)
+        setCarsLoading(true)
       });
   }, []);
 
