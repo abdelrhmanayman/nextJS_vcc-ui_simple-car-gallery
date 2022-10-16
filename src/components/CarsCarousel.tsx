@@ -43,7 +43,7 @@ const CarsCarousel = ({ carsData, defaultSpaceBetween = 20, breakPoints, isLoadi
                             </Text>
                             <Image src={car.imageUrl} alt="car display" width={800} height={600} className="car-img" />
                             <ul className="car-links">
-                                <li  id={`${index}-learn`} onClick={() => {
+                                <li id={`${index}-learn`} className="learn-link" onClick={() => {
                                     dispatch((setSelectedCar as any)(car))
                                 }}>
                                     <Link href={`/learn/${car.id}`}>
@@ -52,7 +52,7 @@ const CarsCarousel = ({ carsData, defaultSpaceBetween = 20, breakPoints, isLoadi
                                         </Text>
                                     </Link>
                                 </li>
-                                <li id={`${index}-shop`} onClick={() => {
+                                <li id={`${index}-shop`} className="shop-link" onClick={() => {
                                     dispatch((setSelectedCar as any)(car))
                                 }}>
                                     <Link href={`/shop/${car.id}`}>

@@ -24,7 +24,6 @@
     margin-bottom: 5px;
 }
 
-
 .car-links {
     display: flex;
     justify-content: center;
@@ -46,6 +45,17 @@
 
 .car-img {
     margin-top: 10px !important;
+    transition: transform .2s
+}
+
+.car-img:hover {
+    transform: scale(1.2);
+  }
+
+.learn-link:hover, .shop-link:hover {
+    em {
+        color: black
+    }
 }
 
 
