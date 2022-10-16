@@ -7,21 +7,30 @@ export interface CarsState {
     selectedCar: Car | null;
 }
 
+interface IState {
+    cars: ISelectedCar
+}
+
+interface ISelectedCar {
+    selectedCar: Car | null;
+}
+
 const initialState: CarsState = {
     selectedCar: null,
 };
+
 
 
 export const carsSlice = createSlice({
     name: "cars",
     initialState,
     reducers: {
-        setSelectedCar(state: { selectedCar: Car | null; }, action: PayloadAction<any>) {
+        setSelectedCar(state: ISelectedCar, action: PayloadAction<any>) {
             state.selectedCar = action.payload;
         },
 
         extraReducers: {
-            [HYDRATE]:  (state: any, action: { payload: { cars: any; }; }) => {
+            [HYDRATE]: (state: IState, action: { payload: { cars: CarsState; }; }) => {
                 return {
                     ...state,
                     ...action.payload.cars,
