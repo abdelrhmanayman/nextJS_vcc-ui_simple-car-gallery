@@ -64,7 +64,8 @@ function CarsGallery() {
       })
       .catch((e) => {
         console.error(e.message)
-        setCarsLoading(true)
+        setCarsLoading(false)
+        setError(true)
       });
   }, []);
 
